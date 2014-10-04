@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="576px" height="512px" viewBox="0 0 576 512" enable-background="new 0 0 576 512" xml:space="preserve">
+<path d="M544,64H32C14.4,64,0,78.4,0,96v320c0,17.6,14.4,32,32,32h512c17.6,0,32-14.4,32-32V96C576,78.4,561.6,64,544,64z M320,128
+	h64v64h-64V128z M416,224v64h-64v-64H416z M224,128h64v64h-64V128z M320,224v64h-64v-64H320z M128,128h64v64h-64V128z M224,224v64
+	h-64v-64H224z M64,128h32v64H64V128z M64,224h64v64H64V224z M96,384H64v-64h32V384z M384,384H128v-64h256V384z M512,384h-96v-64h96
+	V384z M512,288h-64v-64h64V288z M512,192h-96v-64h96V192z"/>
+</svg>
