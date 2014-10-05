@@ -280,3 +280,16 @@
 		}
 	}
 }
+
+.tag-page {
+	h1 {
+	}
+	
+	.post-link {
+		color: $text-color;
+	}
+
+	.post-link:hover {
+		color: $brand-color;
+	}
+}

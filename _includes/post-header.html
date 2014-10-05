@@ -1,6 +1,6 @@
 <ul class="tag-list">
   {% for tag in include.post.tags %}
-    <li class="tag tag-{{ tag }}"><a href="#"><span>{{ tag }}</span></a></li>
+    <li class="tag tag-{{ tag }}"><a href="{{ tag | prepend: "tags/#" | prepend: site.baseurl }}"><span>{{ tag }}</span></a></li>
   {% endfor %}
 </ul>
 <a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">
