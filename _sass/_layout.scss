@@ -251,3 +251,21 @@
         }
     }
 }
+
+.image-gallery {
+    margin-bottom: $spacing-unit / 2;
+    
+    .image {
+    	width: 100%;
+    }
+    
+    .image-link {
+	    box-shadow: 0 0 2px 1px black;
+		text-align: center;
+    	display: block;
+    }
+    
+    .image-caption {
+		color: $grey-color;
+    }
+}
