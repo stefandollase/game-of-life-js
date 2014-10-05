@@ -1,6 +1,13 @@
-This is a template for the jekyll page generator.
+This is my own Jekyll theme. You can find out more info
+about customizing your Jekyll theme, as well as basic
+Jekyll usage documentation at http://jekyllrb.com/
+
+This theme is licensed under the MIT licene.
+
+This theme is based on the Jekyll new theme.
+https://github.com/jglovier/jekyll-new
 
 Icons made by Icomoon (http://www.icomoon.io)
 from http://www.flaticon.com are licensed under a
-Creative Commons Attribution 3.0 Unported License
-(http://creativecommons.org/licenses/by/3.0/).
+Creative Commons Attribution 3.0 Unported License.
+http://creativecommons.org/licenses/by/3.0/
