@@ -10,7 +10,7 @@ email: "your-email@domain.com"
 github_username: "jekyll"
 
 # Disqus settings
-disqus_shortname: ""
+#disqus_shortname: ""
 #disqus_identifier_prefix: ""
 
 # Build settings
