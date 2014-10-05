@@ -253,16 +253,16 @@
 }
 
 .image-box {
+	text-align: center;
     margin-bottom: $spacing-unit / 2;
     
     .image {
-    	width: 100%;
+	    box-shadow: 0 0 2px 1px black;
+	    min-width: 320px;
     }
     
     .image-link {
-	    box-shadow: 0 0 2px 1px black;
 		text-align: center;
-    	display: block;
     }
     
     .image-caption {

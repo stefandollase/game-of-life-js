@@ -1,9 +1,9 @@
-<div class="image-box" {% if include.background %}style="background-color:{{ include.background}}"{% endif %}>
+<div class="image-box">
   <a class="image-link" href="{{ include.file | prepend: "/images/" | prepend: site.baseurl }}">
     <img class="image"
         src="{{ include.file | prepend: "/images/" | prepend: site.baseurl }}"
         {% if include.alt %}alt="{{ include.alt }}"{% endif %}
-        {% if include.width %}style="width:{{ include.width }}"{% endif %}
+        style="{% if include.width %}width:{{ include.width }};{% endif %}{% if include.background %}background-color:{{ include.background}};{% endif %}"
          />
   </a>
   {% if include.caption %}
