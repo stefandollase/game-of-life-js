@@ -1,0 +1,12 @@
+<ul class="tag-list">
+  {% for tag in include.post.tags %}
+    <li class="tag tag-{{ tag }}"><a href="#"><span>{{ tag }}</span></a></li>
+  {% endfor %}
+</ul>
+<a class="post-link" href="{{ include.post.url | prepend: site.baseurl }}">
+  <span class="post-date">{{ include.post.date | date: "%b %-d, %Y" }}</span>
+  <h1 class="post-title">{{ include.post.title }}</h1>
+  {% if include.post.description %}
+    <span class="post-description">{{ include.post.description }}</span>
+  {% endif %}
+</a>

@@ -1,0 +1,9 @@
+<ul class="post-list">
+  {% for post in site.posts %}
+    {% if post.hidden == null or post.hidden == false %}
+      <li>
+        {% include post-header.html post=post %}
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

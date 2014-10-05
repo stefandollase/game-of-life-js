@@ -2,19 +2,5 @@
 layout: default
 ---
 <div class="home">
-  <ul class="post-list">
-    {% for post in site.posts %}
-      {% if post.hidden == null or post.hidden == false %}
-        <li>
-          <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
-            <h2>{{ post.title }}</h2>
-            {% if post.description %}
-              <span class="post-description">{{ post.description }}</span>
-            {% endif %}
-          </a>
-        </li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+{% include post-list.html %}
 </div>
