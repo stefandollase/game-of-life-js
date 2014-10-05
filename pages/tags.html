@@ -1,0 +1,28 @@
+---
+layout: page
+title: List of all Tags
+permalink: /tags/
+showInMenu: false
+---
+{% capture tags %}
+  {% for tag in site.tags %}
+    {{ tag[0] }}
+  {% endfor %}
+{% endcapture %}
+{% assign sortedtags = tags | split:' ' | sort %}
+
+<div class="tag-page tag-list">
+{% for tag in sortedtags %}
+  <h1 class="tag tag-{{ tag }}" id="{{ tag }}">
+    <a href="{{ tag | prepend: "/tags/#" | prepend: site.baseurl }}"><span>{{ tag }}</span></a>
+  </h1>
+  <ul class="post-list">
+  {% for post in site.tags[tag] %}
+    <li><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
+      <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
+      <span class="post-title">{{ post.title }}</span>
+    </a></li>
+  {% endfor %}
+  </ul>
+{% endfor %}
+</div>

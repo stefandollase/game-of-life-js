@@ -262,7 +262,7 @@
 .tag-list {
 	margin: 3px 0;
 	
-	li {
+	.tag {
 		display: inline-block;
 		list-style: none;
 		border: 1px solid #eee;
@@ -282,14 +282,29 @@
 }
 
 .tag-page {
-	h1 {
-	}
-	
 	.post-link {
 		color: $text-color;
 	}
 
 	.post-link:hover {
 		color: $brand-color;
+	}
+	
+	.post-list {
+        margin-bottom: $spacing-unit / 2;
+        
+		li {
+	        margin-bottom: 0;
+		}
+	}
+	
+	.tag {
+		font-size: 1.5em;
+		border-radius: 30px;
+		padding: 0 0 7px;
+		
+		a {
+			padding: 0 20px 3px;
+		}
 	}
 }
