@@ -1,4 +1,4 @@
-<div class="image-gallery" {% if include.background %}style="background-color:{{ include.background}}"{% endif %}>
+<div class="image-box" {% if include.background %}style="background-color:{{ include.background}}"{% endif %}>
   <a class="image-link" href="{{ include.file | prepend: "/images/" | prepend: site.baseurl }}">
     <img class="image"
         src="{{ include.file | prepend: "/images/" | prepend: site.baseurl }}"
