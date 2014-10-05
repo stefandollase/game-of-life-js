@@ -259,24 +259,6 @@
     }
 }
 
-.image-box {
-	text-align: center;
-    margin-bottom: $spacing-unit / 2;
-    
-    .image {
-	    box-shadow: 0 0 2px 1px black;
-	    min-width: 320px;
-    }
-    
-    .image-link {
-		text-align: center;
-    }
-    
-    .image-caption {
-		color: $grey-color;
-    }
-}
-
 .tag-list {
 	margin: 3px 0;
 	

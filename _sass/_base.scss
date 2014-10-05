@@ -50,12 +50,25 @@ img {
 /**
  * Figures
  */
-figure > img {
-    display: block;
+figure {
+	text-align: center;
+
+	.image, svg, img {
+	    min-width: 320px;
+	}
+
+    > a {
+		text-align: center;
+    }
+
+    .image-shadow {
+	    box-shadow: 0 0 2px 1px black;
+    }
 }
 
 figcaption {
     font-size: $small-font-size;
+	color: $grey-color;
 }
 
 
