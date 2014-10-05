@@ -180,9 +180,29 @@
     color: $grey-color;
 }
 
+.post-date {
+    font-size: $small-font-size;
+    color: $grey-color;
+    float: right;
+}
+
+.post-description {
+	font-size: $base-font-size;
+    color: $grey-color;
+}
+
 .post-link {
     display: block;
-    font-size: 24px;
+    font-size: 16px;
+    padding: 0 5px 5px 5px;
+}
+
+.post-link:hover {
+	text-decoration: none;
+	
+	> .post-description {
+		color: $text-color;
+	}
 }
 
 
