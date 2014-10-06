@@ -899,7 +899,7 @@ function GameOfLife(parameters) {
 	href : "02468/02468|cell1|+20x20"
     }, {
 	title : "02468/02468 - Anti-Copyworld - Clean",
-	href : "02468/02468|clean|+20x20|200x200"
+	href : "02468/02468|clean|+20x20|200x200|nogrid|1ms"
     }, {
 	title : "012345678/3 - Growing Cancer",
 	href : "012345678/3|cell1|+20x20"
