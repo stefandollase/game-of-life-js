@@ -899,7 +899,7 @@ function GameOfLife(parameters) {
 	href : "02468/02468|cell1|+20x20"
     }, {
 	title : "02468/02468 - Anti-Copyworld - Clean",
-	href : "02468/02468|clean|+20x20"
+	href : "02468/02468|clean|+20x20|200x200"
     }, {
 	title : "012345678/3 - Growing Cancer",
 	href : "012345678/3|cell1|+20x20"
@@ -911,7 +911,7 @@ function GameOfLife(parameters) {
 	href : "2468/2468|h2o|+20x20"
     }, {
 	title : "23/3 - Line",
-	href : "23/3|line|+100x110|400x220|1ms|nogrid"
+	href : "23/3|line|+100x110|400x221|1ms|nogrid"
     } ];
     this.mouseDownCounter = 2;
 
