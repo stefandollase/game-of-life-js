@@ -1,13 +1,13 @@
 # Site settings
-title: "Your awesome title"
-description: "Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description."
-url: "http://yourdomain.com" # the base hostname & protocol for your site
-baseurl: "" # the subpath of your site, e.g. /blog/
+title: "Conway's Game of Life"
+description: "Conway's Game of Life is a cellular automaton developed by John Horton Conway in 1970."
+url: "http://stefandollase.github.io" # the base hostname & protocol for your site
+baseurl: "/game-of-life-js" # the subpath of your site, e.g. /blog/
 
 # About the author
-author_fullname: "Page Owner"
-email: "your-email@domain.com"
-github_username: "jekyll"
+author_fullname: "Stefan Dollase"
+email: "game-of-life-js@stefandollase.de"
+github_username: "stefandollase"
 
 # Disqus settings
 #disqus_shortname: ""
