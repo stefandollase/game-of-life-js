@@ -145,7 +145,7 @@
     width:         calc(100% - (#{$spacing-unit} / 2));
 }
 
-@include media-query($on-palm) {
+@include media-query($on-laptop) {
     .footer-col {
         float: none;
         width: -webkit-calc(100% - (#{$spacing-unit} / 2));
