@@ -1,1 +1,1 @@
-The content of <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">{{ site.title }}</span> by <span xmlns:cc="http://creativecommons.org/ns#" property="cc:attributionName">{{ site.author_fullname }}</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+This project is licensed under the <a href="https://github.com/stefandollase/game-of-life-js/blob/master/LICENSE">MIT licene</a>.
