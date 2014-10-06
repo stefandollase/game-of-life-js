@@ -1,6 +1,6 @@
 # Site settings
 title: "Conway's Game of Life"
-description: "Conway's Game of Life is a cellular automaton developed by John Horton Conway in 1970."
+description: "This is the project page of my game-of-life-js library, which is my implementation of Conway's Game of Life."
 url: "http://stefandollase.github.io" # the base hostname & protocol for your site
 baseurl: "/game-of-life-js" # the subpath of your site, e.g. /blog/
 
