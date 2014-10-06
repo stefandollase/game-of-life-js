@@ -1,1 +1,1 @@
-This project is licensed under the <a href="https://github.com/stefandollase/game-of-life-js/blob/master/LICENSE">MIT licene</a>.
+This project is licensed under the <a href="https://github.com/stefandollase/game-of-life-js/blob/master/LICENSE">MIT License</a>.
