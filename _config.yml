@@ -6,6 +6,7 @@ baseurl: "/game-of-life-js" # the subpath of your site, e.g. /blog/
 
 # About the author
 author_fullname: "Stefan Dollase"
+author_address: [ "Harscampstraße 22", "52062 Aachen" ]
 email: "game-of-life-js@stefandollase.de"
 github_username: "stefandollase"
 

@@ -6,15 +6,21 @@ showInMenu: false
 ---
 ### Angaben gemäß § 5 TMG
 
-Stefan Dollase  
-Harscampstraße 22  
-52062 Aachen
+<ul class="author_address">
+<li>{{ site.author_fullname }}</li>
+{% for entry in site.author_address %}
+<li>{{ entry }}</li>
+{% endfor %}
+</ul>
 
 ### Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
 
-Stefan Dollase  
-Harscampstraße 22  
-52062 Aachen
+<ul class="author_address">
+<li>{{ site.author_fullname }}</li>
+{% for entry in site.author_address %}
+<li>{{ entry }}</li>
+{% endfor %}
+</ul>
 
 {{ site.email }}
 
