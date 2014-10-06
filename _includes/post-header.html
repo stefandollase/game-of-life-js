@@ -1,5 +1,6 @@
 <ul class="tag-list">
-  {% for tag in include.post.tags %}
+  {% assign sorted_tags = include.post.tags | sort %}
+  {% for tag in sorted_tags %}
     <li class="tag tag-{{ tag }}"><a href="{{ tag | prepend: "/tags/#" | prepend: site.baseurl }}"><span>{{ tag }}</span></a></li>
   {% endfor %}
 </ul>
