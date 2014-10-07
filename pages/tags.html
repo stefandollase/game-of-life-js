@@ -2,7 +2,6 @@
 layout: page
 title: List of all Tags
 permalink: /tags/
-showInMenu: false
 ---
 {% capture tags %}
   {% for tag in site.tags %}
@@ -18,10 +17,12 @@ showInMenu: false
   </h1>
   <ul class="post-list">
   {% for post in site.tags[tag] %}
+    {% if post.hidden != true %}
     <li><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">
       <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
       <span class="post-title">{{ post.title }}</span>
     </a></li>
+    {% endif %}
   {% endfor %}
   </ul>
 {% endfor %}
