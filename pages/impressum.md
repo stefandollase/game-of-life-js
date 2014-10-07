@@ -2,7 +2,6 @@
 layout: page
 title: Impressum
 permalink: /impressum/
-showInMenu: false
 ---
 ### Angaben gemäß § 5 TMG
 
