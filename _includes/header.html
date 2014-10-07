@@ -15,7 +15,11 @@
 
       <div class="trigger">
         {% for page in site.menu_entries %}
+        {% if page.useBaseUrl != false %}
           <a class="page-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>
+        {% else %}
+          <a class="page-link" href="{{ page.url }}">{{ page.title }}</a>
+        {% endif %}
         {% endfor %}
       </div>
     </nav>
