@@ -27,27 +27,6 @@ function GameOfLife(parameters) {
 
     this.timer = false;
 
-    this.defaultSettings = {
-	rules : {
-	    keepAlive : [ false, false, true, true, false, false, false, false,
-		    false ],
-	    revive : [ false, false, false, true, false, false, false, false,
-		    false ]
-	},
-	size : {
-	    width : 100,
-	    height : 50
-	},
-	patternOffset : {
-	    i : 0,
-	    j : 0
-	},
-	pattern : {},
-	speed : 100,
-	showGrid : true,
-	border : "dead",
-    };
-
     this.state = this.createState();
     this.setupSettings(parameters);
     this.setupModes(parameters);
@@ -320,6 +299,7 @@ GameOfLife.prototype.setupMatrices = function() {
     }
 }
 GameOfLife.prototype.setupSettings = function(parameters) {
+    this.defaultSettings = this.overwriteJSObject({}, this.defaultDefaultSettings);
     if (parameters.settings) {
 	this.overwriteJSObject(this.defaultSettings, parameters.settings);
     }
@@ -948,3 +928,22 @@ GameOfLife.prototype.defaultModes = [ {
     title : "23/3 - Line",
     href : "23/3|line|+100x110|400x221|1ms|nogrid"
 } ];
+GameOfLife.prototype.defaultDefaultSettings = {
+    rules : {
+	keepAlive : [ false, false, true, true, false, false, false, false,
+		false ],
+	revive : [ false, false, false, true, false, false, false, false, false ]
+    },
+    size : {
+	width : 100,
+	height : 50
+    },
+    patternOffset : {
+	i : 0,
+	j : 0
+    },
+    pattern : {},
+    speed : 100,
+    showGrid : true,
+    border : "dead",
+};
