@@ -324,9 +324,6 @@ GameOfLife.prototype.setupUIModeList = function() {
     }
     this.html.container.appendChild(this.html.modeList);
 }
-GameOfLife.prototype.initNamedPattern = function(name) {
-    this.state.set("pattern", name, true);
-}
 GameOfLife.prototype.exportCurrentGeneration = function() {
     if (this.currentGenerationChanged) {
 	var minI = this.size.height;
@@ -389,6 +386,43 @@ GameOfLife.prototype.toggleGrid = function() {
 }
 GameOfLife.prototype.toggleBorder = function() {
     this.state.toggle("border");
+}
+GameOfLife.prototype.toggleRunning = function() {
+    if (this.isRunning()) {
+	this.stop();
+    } else {
+	this.start();
+    }
+}
+GameOfLife.prototype.start = function() {
+    var that = this;
+    if (!this.isRunning()) {
+	this.timer = window.setInterval(function() {
+	    that.step();
+	}, this.speed);
+	document.title = "▶ " + document.title;
+	this.html.startButton.innerHTML = "Stop";
+    }
+}
+GameOfLife.prototype.stop = function() {
+    if (this.isRunning()) {
+	window.clearInterval(this.timer);
+	this.timer = false;
+	document.title = document.title.substring(2);
+	this.html.startButton.innerHTML = "Start";
+    }
+}
+GameOfLife.prototype.restartIfRunning = function() {
+    if (this.isRunning()) {
+	this.stop();
+	this.start();
+    }
+}
+GameOfLife.prototype.isRunning = function() {
+    return !(this.timer === false);
+}
+GameOfLife.prototype.initNamedPattern = function(name) {
+    this.state.set("pattern", name, true);
 }
 GameOfLife.prototype.initPattern = function() {
     var wasRunning = this.isRunning();
@@ -670,40 +704,6 @@ GameOfLife.prototype.countNeighborsBorderDead = function(i, j) {
     }
     return result;
 }
-GameOfLife.prototype.start = function() {
-    var that = this;
-    if (!this.isRunning()) {
-	this.timer = window.setInterval(function() {
-	    that.step();
-	}, this.speed);
-	document.title = "▶ " + document.title;
-	this.html.startButton.innerHTML = "Stop";
-    }
-}
-GameOfLife.prototype.stop = function() {
-    if (this.isRunning()) {
-	window.clearInterval(this.timer);
-	this.timer = false;
-	document.title = document.title.substring(2);
-	this.html.startButton.innerHTML = "Start";
-    }
-}
-GameOfLife.prototype.restartIfRunning = function() {
-    if (this.isRunning()) {
-	this.stop();
-	this.start();
-    }
-}
-GameOfLife.prototype.toggleRunning = function() {
-    if (this.isRunning()) {
-	this.stop();
-    } else {
-	this.start();
-    }
-}
-GameOfLife.prototype.isRunning = function() {
-    return !(this.timer === false);
-}
 GameOfLife.prototype.mouseMove = function(event) {
     if (event.buttons == 1) {
 	if ((this.mouseDownCounter % 2) == 0) {
@@ -751,7 +751,6 @@ GameOfLife.prototype.getPatternNames = function() {
     }
     return result;
 }
-
 GameOfLife.prototype.namedPatterns = {
     "clean" : {},
     "cell1" : {
@@ -815,7 +814,7 @@ GameOfLife.prototype.namedPatterns = {
 		184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195,
 		196, 197, 198, 199 ]
     },
-};
+}
 GameOfLife.prototype.defaultModes = [ {
     title : "23/3 - Conway's Original Game Of Life",
     href : "23/3|random"
@@ -855,7 +854,7 @@ GameOfLife.prototype.defaultModes = [ {
 }, {
     title : "23/3 - Line",
     href : "23/3|line|+100x110|400x221|1ms|nogrid"
-} ];
+} ]
 GameOfLife.prototype.defaultDefaultSettings = {
     rules : {
 	keepAlive : [ false, false, true, true, false, false, false, false,
@@ -874,4 +873,4 @@ GameOfLife.prototype.defaultDefaultSettings = {
     speed : 100,
     showGrid : true,
     border : "dead",
-};
+}
