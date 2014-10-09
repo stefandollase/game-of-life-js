@@ -39,124 +39,66 @@ function GameOfLife(parameters) {
 }
 GameOfLife.prototype.createState = function() {
     var that = this;
+    var callThatFunction = function(functionName) {
+	return function() {
+	    that[functionName].call(that);
+	};
+    }
     return new AppStateBinder(
 	    {
 		autoplay : {
-		    flag : "autoplay",
-		    changed : function(dataValue) {
-			that.updateAutoplay();
-		    }
-		},
-		pattern : {
-		    option : this.getPatternNames(),
-		    changed : function(dataValue) {
-			that.updatePattern();
-		    }
-		},
-		patternData : {
-		    json : "json",
-		    changed : function(dataValue) {
-			that.updatePattern();
-		    }
+		    type : "flag",
+		    changed : callThatFunction("updateAutoplay"),
 		},
 		nogrid : {
-		    flag : "nogrid",
-		    changed : function(dataValue) {
-			that.updateShowGrid();
-		    }
+		    type : "flag",
+		    changed : callThatFunction("updateShowGrid"),
+		},
+		patternData : {
+		    type : "json",
+		    changed : callThatFunction("updatePattern"),
+		},
+		pattern : {
+		    type : "option",
+		    changed : callThatFunction("updatePattern"),
+		    options : this.getPatternNames(),
 		},
 		border : {
-		    option : [ "torus", "alive", "dead" ],
-		    changed : function(dataValue) {
-			that.updateBorder();
-		    }
+		    type : "option",
+		    changed : callThatFunction("updateBorder"),
+		    options : [ "torus", "alive", "dead" ],
 		},
 		speed : {
-		    parse : function(stringValue) {
-			if (!that.stringContains(stringValue, "ms")) {
-			    return false;
-			}
-			try {
-			    var propertyArray = stringValue.split("ms");
-			    if ((propertyArray.length !== 2)
-				    || (propertyArray[1] !== "")) {
-				return false;
-			    }
-			    return that.parseIntMinMax(propertyArray[0], 0,
-				    10000);
-			} catch (err) {
-			    return false;
-			}
-		    },
-		    stringify : function(dataValue) {
-			return dataValue + "ms";
-		    },
-		    changed : function(dataValue) {
-			that.updateSpeed();
-		    }
+		    type : "number",
+		    changed : callThatFunction("updateSpeed"),
+		    prefix : "",
+		    suffix : "ms",
+		    min : 0,
+		    max : 10000,
 		},
 		size : {
-		    parse : function(stringValue) {
-			if (!that.stringContains(stringValue, "x")
-				|| that.stringContains(stringValue, "+")) {
-			    return false;
-			}
-			try {
-			    var propertyArray = stringValue.split("x");
-			    if (propertyArray.length !== 2) {
-				return false;
-			    }
-			    return {
-				width : that.parseIntMinMax(propertyArray[0],
-					1, 500),
-				height : that.parseIntMinMax(propertyArray[1],
-					1, 500)
-			    };
-			} catch (err) {
-			    return false;
-			}
+		    type : "numberObject",
+		    changed : callThatFunction("updateSize"),
+		    separators : [ "", "x", "" ],
+		    attributes : [ "width", "height" ],
+		    ranges : {
+			"width" : [ 1, 500 ],
+			"height" : [ 1, 500 ],
 		    },
-		    stringify : function(dataValue) {
-			return dataValue.width + "x" + dataValue.height;
-		    },
-		    changed : function(dataValue) {
-			that.updateSize();
-		    }
 		},
 		patternOffset : {
-		    parse : function(stringValue) {
-			if (!that.stringContains(stringValue, "x")
-				|| !that.stringContains(stringValue, "+")) {
-			    return false;
-			}
-			var propertyArray1 = stringValue.split("+");
-			if ((propertyArray1.length !== 2)
-				|| (propertyArray1[0] !== "")) {
-			    return false;
-			}
-			try {
-			    var propertyArray2 = propertyArray1[1].split("x");
-			    if (propertyArray2.length !== 2) {
-				return false;
-			    }
-			    return {
-				j : that.parseIntMinMax(propertyArray2[0], 0,
-					499),
-				i : that.parseIntMinMax(propertyArray2[1], 0,
-					499)
-			    };
-			} catch (err) {
-			    return false;
-			}
+		    type : "numberObject",
+		    changed : callThatFunction("updatePatternOffset"),
+		    separators : [ "+", "x", "" ],
+		    attributes : [ "j", "i" ],
+		    ranges : {
+			"j" : [ 0, 499 ],
+			"i" : [ 0, 499 ],
 		    },
-		    stringify : function(dataValue) {
-			return "+" + dataValue.j + "x" + dataValue.i;
-		    },
-		    changed : function(dataValue) {
-			that.updatePatternOffset();
-		    }
 		},
 		rules : {
+		    type : "custom",
+		    changed : callThatFunction("updateRules"),
 		    parse : function(stringValue) {
 			if (!that.stringContains(stringValue, "/")) {
 			    return false;
@@ -193,23 +135,8 @@ GameOfLife.prototype.createState = function() {
 			}
 			return result;
 		    },
-		    changed : function(dataValue) {
-			that.updateRules();
-		    }
 		}
 	    });
-}
-GameOfLife.prototype.parseIntMinMax = function(value, min, max) {
-    if (value === "" || isNaN(value)) {
-	throw "NaN";
-    }
-    var number = parseInt(value);
-    if (number < min) {
-	number = min;
-    } else if (number > max) {
-	number = max;
-    }
-    return number;
 }
 GameOfLife.prototype.stringContains = function(value, contains) {
     return (value.indexOf(contains) >= 0);
@@ -299,7 +226,8 @@ GameOfLife.prototype.setupMatrices = function() {
     }
 }
 GameOfLife.prototype.setupSettings = function(parameters) {
-    this.defaultSettings = this.overwriteJSObject({}, this.defaultDefaultSettings);
+    this.defaultSettings = this.overwriteJSObject({},
+	    this.defaultDefaultSettings);
     if (parameters.settings) {
 	this.overwriteJSObject(this.defaultSettings, parameters.settings);
     }
