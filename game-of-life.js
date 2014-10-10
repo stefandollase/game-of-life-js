@@ -517,6 +517,9 @@ GameOfLife.prototype.setRules = function() {
     });
 }
 GameOfLife.prototype.setCustomPattern = function() {
+    this.state.unset("pattern");
+    this.state.unset("patternData");
+    
     var pattern = {};
     var lines = this.html.customPattern.value.split("\n");
     for (var i = 0; i < lines.length; i++) {
