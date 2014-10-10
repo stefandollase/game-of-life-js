@@ -737,7 +737,7 @@ GameOfLife.prototype.drawGrid = function() {
 	for (var j = 1; j < this.size.width; j++) {
 	    this.drawVerticalLine(j)
 	}
-	this.html.context.strokeStyle = "#eee";
+	this.html.context.strokeStyle = this.color.grid;
 	this.html.context.stroke();
     }
 }
@@ -746,7 +746,7 @@ GameOfLife.prototype.drawBorder = function() {
     this.drawHorizontalLine(this.size.height);
     this.drawVerticalLine(0);
     this.drawVerticalLine(this.size.width);
-    this.html.context.strokeStyle = "#eee";
+    this.html.context.strokeStyle = this.color.border;
     this.html.context.stroke();
 }
 GameOfLife.prototype.drawHorizontalLine = function(i) {
@@ -772,16 +772,17 @@ GameOfLife.prototype.drawCell = function(i, j, isAlive) {
     var width = this.cellWidth[j];
     var height = this.cellHeight[i];
     if (this.drawOverlay[i][j] === this.mouseDownCounter) {
-	this.html.context.fillStyle = "#33c";
+	this.html.context.fillStyle = this.color.setAlive;
 	this.html.context.fillRect(x, y, width, height);
     } else if (this.drawOverlay[i][j] === -this.mouseDownCounter) {
-	this.html.context.fillStyle = "#77e";
+	this.html.context.fillStyle = this.color.setDead;
 	this.html.context.fillRect(x, y, width, height);
     } else if (isAlive) {
-	this.html.context.fillStyle = "#000";
+	this.html.context.fillStyle = this.color.alive;
 	this.html.context.fillRect(x, y, width, height);
     } else {
-	this.html.context.clearRect(x, y, width, height);
+	this.html.context.fillStyle = this.color.dead;
+	this.html.context.fillRect(x, y, width, height);
     }
 }
 GameOfLife.prototype.step = function() {
@@ -1064,5 +1065,13 @@ GameOfLife.prototype.defaultDefaultSettings = {
     maxCanvasSize : {
 	width : 1000,
 	height : 1000,
+    },
+    color : {
+	border : "#eee",
+	grid : "#eee",
+	alive : "#000",
+	dead : "#fff",
+	setAlive : "#33c",
+	setDead : "#77c",
     }
 }
