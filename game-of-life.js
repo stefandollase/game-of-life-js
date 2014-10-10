@@ -340,7 +340,7 @@ GameOfLife.prototype.setupUI = function(parameters) {
     container = this.setupUIElement(container, "fieldset", "ruleItems");
     save("revive", this.setupUICheckBoxes(container, "setRules"));
 
-    container = this.setupUIElement(this.html.controls, "fieldset", "import");
+    container = this.setupUIElement(this.html.controls, "fieldset", "customPattern");
     save("customPattern", this.setupUITextArea(container, "Custom Pattern",
 	    "setCustomPattern"));
 
