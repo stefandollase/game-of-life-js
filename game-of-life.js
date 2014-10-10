@@ -980,7 +980,7 @@ GameOfLife.prototype.defaultModes = [ {
     value : "0123/01234|random"
 }, {
     title : "01234678/0123478 - Anti-Conway",
-    value : "01234678/0123478|random"
+    value : "01234678/0123478|random|alive"
 }, {
     title : "02468/02468 - Anti-Copyworld",
     value : "02468/02468|cell1|+20x20"
