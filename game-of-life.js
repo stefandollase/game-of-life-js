@@ -37,40 +37,56 @@ function GameOfLife(parameters) {
 
     this.drawAllCells();
 }
-GameOfLife.prototype.createState = function() {
-    var that = this;
-    var callThatFunction = function(functionName) {
-	return function() {
-	    that[functionName].call(that);
-	};
+GameOfLife.prototype.isString = function(value) {
+    return (typeof value == 'string') || (value instanceof String);
+}
+GameOfLife.prototype.overwriteJSObject = function(destination, source) {
+    for ( var key in source) {
+	destination[key] = source[key];
     }
+    return destination;
+}
+GameOfLife.prototype.callThatFunction = function(callback, parameters) {
+    parameters = parameters || [];
+    var that = this;
+    if (this.isString(callback)) {
+	return function() {
+	    that[callback].apply(that, parameters);
+	}
+    } else {
+	return function() {
+	    callback.apply(that, parameters);
+	}
+    }
+}
+GameOfLife.prototype.createState = function() {
     return new AppStateBinder(
 	    {
 		autoplay : {
 		    type : "flag",
-		    changed : callThatFunction("updateAutoplay"),
+		    changed : this.callThatFunction("updateAutoplay"),
 		},
 		nogrid : {
 		    type : "flag",
-		    changed : callThatFunction("updateShowGrid"),
+		    changed : this.callThatFunction("updateShowGrid"),
 		},
 		patternData : {
 		    type : "json",
-		    changed : callThatFunction("updatePattern"),
+		    changed : this.callThatFunction("updatePattern"),
 		},
 		pattern : {
 		    type : "option",
-		    changed : callThatFunction("updatePattern"),
-		    options : this.getPatternNames(),
+		    changed : this.callThatFunction("updatePattern"),
+		    options : this.getPatternNames(true),
 		},
 		border : {
 		    type : "option",
-		    changed : callThatFunction("updateBorder"),
+		    changed : this.callThatFunction("updateBorder"),
 		    options : [ "torus", "alive", "dead" ],
 		},
 		speed : {
 		    type : "number",
-		    changed : callThatFunction("updateSpeed"),
+		    changed : this.callThatFunction("updateSpeed"),
 		    prefix : "",
 		    suffix : "ms",
 		    min : 0,
@@ -78,7 +94,7 @@ GameOfLife.prototype.createState = function() {
 		},
 		size : {
 		    type : "numberObject",
-		    changed : callThatFunction("updateSize"),
+		    changed : this.callThatFunction("updateSize"),
 		    separators : [ "", "x", "" ],
 		    attributes : [ "width", "height" ],
 		    ranges : {
@@ -88,7 +104,7 @@ GameOfLife.prototype.createState = function() {
 		},
 		patternOffset : {
 		    type : "numberObject",
-		    changed : callThatFunction("updatePatternOffset"),
+		    changed : this.callThatFunction("updatePatternOffset"),
 		    separators : [ "+", "x", "" ],
 		    attributes : [ "j", "i" ],
 		    ranges : {
@@ -98,9 +114,9 @@ GameOfLife.prototype.createState = function() {
 		},
 		rules : {
 		    type : "custom",
-		    changed : callThatFunction("updateRules"),
+		    changed : this.callThatFunction("updateRules"),
 		    parse : function(stringValue) {
-			if (!that.stringContains(stringValue, "/")) {
+			if (stringValue.indexOf("/") < 0) {
 			    return false;
 			}
 			var propertyArray = stringValue.split("/");
@@ -138,18 +154,6 @@ GameOfLife.prototype.createState = function() {
 		}
 	    });
 }
-GameOfLife.prototype.stringContains = function(value, contains) {
-    return (value.indexOf(contains) >= 0);
-}
-GameOfLife.prototype.isString = function(value) {
-    return (typeof value == 'string') || (value instanceof String);
-}
-GameOfLife.prototype.overwriteJSObject = function(destination, source) {
-    for ( var key in source) {
-	destination[key] = source[key];
-    }
-    return destination;
-}
 GameOfLife.prototype.updateAutoplay = function() {
     if (this.state.isSet("autoplay")) {
 	this.state.unset("autoplay");
@@ -163,12 +167,14 @@ GameOfLife.prototype.updatePattern = function() {
 	this.pattern = "random";
     } else if (pattern !== false) {
 	this.pattern = this.namedPatterns[pattern];
+	this.html.selectPattern.value = pattern;
     } else if (patternData !== false) {
 	this.pattern = patternData;
     } else if (this.defaultSettings.pattern === "random") {
 	this.pattern = "random";
     } else if (this.isString(this.defaultSettings.pattern)) {
 	this.pattern = this.namedPatterns[this.defaultSettings.pattern];
+	this.html.selectPattern.value = this.defaultSettings.pattern;
     } else if (this.defaultSettings.pattern !== false) {
 	this.pattern = this.defaultSettings.pattern;
     } else {
@@ -177,32 +183,47 @@ GameOfLife.prototype.updatePattern = function() {
     this.initPattern();
     this.drawAllCells();
 }
-GameOfLife.prototype.updatePatternOffset = function() {
-    this.setStateOrDefault("patternOffset");
-    this.initPattern();
-    this.drawAllCells();
+GameOfLife.prototype.updateBorder = function() {
+    this.setStateOrDefault("border");
+    this.html.selectBorder.value = this.border;
+}
+GameOfLife.prototype.updateSpeed = function() {
+    this.setStateOrDefault("speed");
+    this.html.speedTextBox.value = this.speed;
+    this.restartIfRunning();
 }
 GameOfLife.prototype.updateSize = function() {
     this.setStateOrDefault("size");
+    this.html.widthTextBox.value = this.size.width;
+    this.html.heightTextBox.value = this.size.height;
     this.setupMatrices();
     this.resize();
     this.initPattern();
     this.drawAllCells();
 }
+GameOfLife.prototype.updatePatternOffset = function() {
+    this.setStateOrDefault("patternOffset");
+    this.html.patternOffsetJTextBox.value = this.patternOffset.j;
+    this.html.patternOffsetITextBox.value = this.patternOffset.i;
+    this.initPattern();
+    this.drawAllCells();
+}
 GameOfLife.prototype.updateRules = function() {
     this.setStateOrDefault("rules");
-}
-GameOfLife.prototype.updateSpeed = function() {
-    this.setStateOrDefault("speed");
-    this.restartIfRunning();
+    for (var i = 0; i < 9; i++) {
+	this.html.keepAlive[i].checked = this.rules.keepAlive[i];
+	this.html.revive[i].checked = this.rules.revive[i];
+    }
 }
 GameOfLife.prototype.updateShowGrid = function() {
     this.showGrid = !this.state.isSet("nogrid");
+    if (this.showGrid) {
+	this.html.gridButton.innerHTML = "Hide Grid";
+    } else {
+	this.html.gridButton.innerHTML = "Show Grid";
+    }
     this.resize();
     this.drawAllCells();
-}
-GameOfLife.prototype.updateBorder = function() {
-    this.setStateOrDefault("border");
 }
 GameOfLife.prototype.setStateOrDefault = function(name) {
     var value = this.state.get(name);
@@ -255,18 +276,59 @@ GameOfLife.prototype.setupUI = function(parameters) {
 	this.html.container = parameters.container;
     }
 
+    this.html.buttons = this.setupUIFieldset(this.html.container);
+    this.html.keepAliveContainer = this.setupUIFieldset(this.html.container);
+    this.html.keepAliveContainer.className = "rules";
+    this.html.reviveContainer = this.setupUIFieldset(this.html.container);
+    this.html.reviveContainer.className = "rules";
+    this.html.textBoxes = this.setupUIFieldset(this.html.container);
+
     this.setupUIWindow();
-    this.html.startButton = this.setupUIButton("Start", "toggleRunning");
-    this.setupUIButton("Step", "step");
-    this.setupUIButton("Clear", "initNamedPattern", [ "clean" ]);
-    this.setupUIButton("Random", "initNamedPattern", [ "random" ]);
-    this.setupUIButton("Export", "exportCurrentGeneration");
-    this.setupUIButton("Quicker", "increaseSpeed", [ 0.5 ]);
-    this.setupUIButton("Slower", "increaseSpeed", [ 2 ]);
-    this.setupUIButton("Toggle Grid", "toggleGrid");
-    this.setupUIButton("Toggle Border", "toggleBorder");
-    this.setupUICanvas();
-    this.setupUIModeList();
+
+    this.html.startButton = this.setupUIButton(this.html.buttons, "Start",
+	    "toggleRunning");
+    this.setupUIButton(this.html.buttons, "Step", "step");
+    this.setupUIButton(this.html.buttons, "Clear", "initNamedPattern",
+	    [ "clean" ]);
+    this.setupUIButton(this.html.buttons, "Random", "initNamedPattern",
+	    [ "random" ]);
+    this.setupUIButton(this.html.buttons, "Export", "exportCurrentGeneration");
+    this.html.gridButton = this.setupUIButton(this.html.buttons, "Hide Grid",
+	    "toggleGrid");
+    this.html.selectPattern = this.setupUIComboBox(this.html.buttons,
+	    "initNamedPattern", this.getPatternNames(false));
+    this.html.selectBorder = this.setupUIComboBox(this.html.buttons,
+	    "setBorder", [ "dead", "torus", "alive" ]);
+
+    this.setupUILegend(this.html.keepAliveContainer, "Keep Alive");
+    this.html.keepAlive = new Array(9);
+    for (var i = 0; i < 9; i++) {
+	this.html.keepAlive[i] = this.setupUICheckBox(
+		this.html.keepAliveContainer, "" + i, "setRules");
+    }
+
+    this.setupUILegend(this.html.reviveContainer, "Revive");
+    this.html.revive = new Array(9);
+    for (var i = 0; i < 9; i++) {
+	this.html.revive[i] = this.setupUICheckBox(this.html.reviveContainer,
+		"" + i, "setRules");
+    }
+
+    this.html.speedTextBox = this.setupUITextBox(this.html.textBoxes,
+	    "Speed (ms)", "setSpeed");
+    this.html.widthTextBox = this.setupUITextBox(this.html.textBoxes,
+	    "Width (cells)", "setSize");
+    this.html.heightTextBox = this.setupUITextBox(this.html.textBoxes,
+	    "Height (cells)", "setSize");
+    this.html.patternOffsetJTextBox = this.setupUITextBox(this.html.textBoxes,
+	    "Pattern Offset X (cells)", "setPatternOffset");
+    this.html.patternOffsetITextBox = this.setupUITextBox(this.html.textBoxes,
+	    "Pattern Offset Y (cells)", "setPatternOffset");
+
+    this.html.selectMode = this.setupUIComboBox(this.html.container, "setMode",
+	    this.modes);
+
+    this.setupUICanvas(this.html.container);
 }
 GameOfLife.prototype.setupUIWindow = function() {
     var that = this;
@@ -275,26 +337,65 @@ GameOfLife.prototype.setupUIWindow = function() {
 	that.drawAllCells();
     }, false);
 }
-GameOfLife.prototype.setupUIButton = function(title, callback, parameterArray) {
-    parameterArray = parameterArray || [];
+GameOfLife.prototype.setupUIFieldset = function(container) {
+    var fieldset = document.createElement("fieldset");
+    container.appendChild(fieldset);
+    return fieldset;
+}
+GameOfLife.prototype.setupUILegend = function(container, title) {
+    var legend = document.createElement("legend");
+    legend.innerHTML = title;
+    container.appendChild(legend);
+    return legend;
+}
+GameOfLife.prototype.setupUIButton = function(container, title, callback,
+	parameters) {
     var button = document.createElement("button");
     button.innerHTML = title;
-    var callbackFunction;
-    var that = this;
-    if (this.isString(callback)) {
-	callbackFunction = function() {
-	    that[callback].apply(that, parameterArray);
-	};
-    } else {
-	callbackFunction = function() {
-	    callback.apply(that, parameterArray);
-	};
-    }
-    button.addEventListener('click', callbackFunction, false);
-    this.html.container.appendChild(button);
+    button.addEventListener('click', this.callThatFunction(callback, parameters
+	    || []), false);
+    container.appendChild(button);
     return button;
 }
-GameOfLife.prototype.setupUICanvas = function() {
+GameOfLife.prototype.setupUITextBox = function(container, title, callback) {
+    var legend = document.createElement("legend");
+    legend.innerHTML = title;
+    var textBox = document.createElement("input");
+    textBox.setAttribute("type", "text");
+    textBox.addEventListener('keyup', this.callThatFunction(callback), false);
+    legend.appendChild(textBox);
+    container.appendChild(legend);
+    return textBox;
+}
+GameOfLife.prototype.setupUICheckBox = function(container, title, callback) {
+    var legend = document.createElement("legend");
+    legend.className = "ruleItem";
+    var checkBox = document.createElement("input");
+    checkBox.setAttribute("type", "checkbox");
+    checkBox.addEventListener('change', this.callThatFunction(callback), false);
+    legend.appendChild(checkBox);
+    legend.appendChild(document.createTextNode(title));
+    container.appendChild(legend);
+    return checkBox;
+}
+GameOfLife.prototype.setupUIComboBox = function(container, callback, options) {
+    var select = document.createElement("select");
+    for (var i = 0; i < options.length; i++) {
+	var option = document.createElement("option")
+	if (this.isString(options[i])) {
+	    option.innerHTML = options[i];
+	    option.setAttribute("value", options[i]);
+	} else {
+	    option.innerHTML = options[i].title;
+	    option.setAttribute("value", options[i].value);
+	}
+	select.appendChild(option);
+    }
+    select.addEventListener("change", this.callThatFunction(callback), false);
+    container.appendChild(select);
+    return select;
+}
+GameOfLife.prototype.setupUICanvas = function(container) {
     var that = this;
     this.html.canvas = document.createElement("canvas");
     this.html.canvas.addEventListener("mousemove", function(event) {
@@ -306,23 +407,9 @@ GameOfLife.prototype.setupUICanvas = function() {
     this.html.canvas.addEventListener("mouseup", function(event) {
 	that.mouseUp(event);
     });
-    this.html.container.appendChild(this.html.canvas);
+    container.appendChild(this.html.canvas);
 
     this.html.context = this.html.canvas.getContext("2d");
-}
-GameOfLife.prototype.setupUIModeList = function() {
-    this.html.modeList = document.createElement("ul");
-    this.html.modeList.style.listStyle = "none";
-    this.html.modeList.style.marginLeft = 0;
-    for (var i = 0; i < this.modes.length; i++) {
-	var modeListElement = document.createElement("li")
-	var modeLink = document.createElement("a")
-	modeLink.innerHTML = this.modes[i].title;
-	modeLink.setAttribute("href", "#" + this.modes[i].href);
-	modeListElement.appendChild(modeLink);
-	this.html.modeList.appendChild(modeListElement);
-    }
-    this.html.container.appendChild(this.html.modeList);
 }
 GameOfLife.prototype.exportCurrentGeneration = function() {
     if (this.currentGenerationChanged) {
@@ -372,20 +459,38 @@ GameOfLife.prototype.exportCurrentGeneration = function() {
 	this.state.unset("pattern");
     }
 }
-GameOfLife.prototype.increaseSpeed = function(factor) {
-    var newSpeed = (this.speed * factor) | 0;
-    if (newSpeed < 1) {
-	newSpeed = 1;
-    } else if (newSpeed > 10000) {
-	newSpeed = 10000;
+GameOfLife.prototype.setSpeed = function() {
+    this.state.setStringValue("speed", this.html.speedTextBox.value + "ms");
+}
+GameOfLife.prototype.setSize = function() {
+    this.state.setStringValue("size", this.html.widthTextBox.value + "x"
+	    + this.html.heightTextBox.value);
+}
+GameOfLife.prototype.setPatternOffset = function() {
+    this.state.setStringValue("patternOffset", "+"
+	    + this.html.patternOffsetJTextBox.value + "x"
+	    + this.html.patternOffsetITextBox.value);
+}
+GameOfLife.prototype.setRules = function() {
+    var keepAlive = new Array(9);
+    var revive = new Array(9);
+    for (var i = 0; i < 9; i++) {
+	keepAlive[i] = this.html.keepAlive[i].checked;
+	revive[i] = this.html.revive[i].checked;
     }
-    this.state.set("speed", newSpeed);
+    this.state.set("rules", {
+	keepAlive : keepAlive,
+	revive : revive
+    });
+}
+GameOfLife.prototype.setMode = function() {
+    window.location.hash = this.html.selectMode.value;
+}
+GameOfLife.prototype.setBorder = function() {
+    this.state.setStringValue("border", this.html.selectBorder.value);
 }
 GameOfLife.prototype.toggleGrid = function() {
     this.state.toggle("nogrid");
-}
-GameOfLife.prototype.toggleBorder = function() {
-    this.state.toggle("border");
 }
 GameOfLife.prototype.toggleRunning = function() {
     if (this.isRunning()) {
@@ -422,7 +527,14 @@ GameOfLife.prototype.isRunning = function() {
     return !(this.timer === false);
 }
 GameOfLife.prototype.initNamedPattern = function(name) {
-    this.state.set("pattern", name, true);
+    if (name !== undefined) {
+	this.state.setStringValue("pattern", name, true);
+	this.state.unset("patternData");
+    } else {
+	this.state.setStringValue("pattern", this.html.selectPattern.value,
+		true);
+	this.state.unset("patternData");
+    }
 }
 GameOfLife.prototype.initPattern = function() {
     var wasRunning = this.isRunning();
@@ -744,10 +856,15 @@ GameOfLife.prototype.mouseUp = function(event) {
 
     this.drawAllCells();
 }
-GameOfLife.prototype.getPatternNames = function() {
-    var result = [ "random" ];
+GameOfLife.prototype.getPatternNames = function(includeCleanAndRandom) {
+    var result = [];
+    if (includeCleanAndRandom === true) {
+	result.push("random");
+    }
     for ( var pattern in this.namedPatterns) {
-	result.push(pattern);
+	if (pattern !== "clean" || includeCleanAndRandom === true) {
+	    result.push(pattern);
+	}
     }
     return result;
 }
@@ -817,43 +934,43 @@ GameOfLife.prototype.namedPatterns = {
 }
 GameOfLife.prototype.defaultModes = [ {
     title : "23/3 - Conway's Original Game Of Life",
-    href : "23/3|random"
+    value : "23/3|random"
 }, {
     title : "23/3 - Conway's Original Game Of Life - Nice",
-    href : "23/3|nice|+20x20"
+    value : "23/3|nice|+20x20"
 }, {
     title : "23/3 - Conway's Original Game Of Life - Glider Gun",
-    href : "23/3|glider-gun"
+    value : "23/3|glider-gun"
 }, {
     title : "1357/1357 - Copyworld",
-    href : "1357/1357|cell1|+20x20"
+    value : "1357/1357|cell1|+20x20"
 }, {
     title : "12345/3 - Labyrinth",
-    href : "12345/3|cell1|+20x20"
+    value : "12345/3|cell1|+20x20"
 }, {
     title : "0123/01234 - Blink",
-    href : "0123/01234|random"
+    value : "0123/01234|random"
 }, {
     title : "01234678/0123478 - Anti-Conway",
-    href : "01234678/0123478|random"
+    value : "01234678/0123478|random"
 }, {
     title : "02468/02468 - Anti-Copyworld",
-    href : "02468/02468|cell1|+20x20"
+    value : "02468/02468|cell1|+20x20"
 }, {
     title : "02468/02468 - Anti-Copyworld - Clean",
-    href : "02468/02468|clean|+20x20|200x200|nogrid|1ms"
+    value : "02468/02468|clean|+20x20|200x200|nogrid|1ms"
 }, {
     title : "012345678/3 - Growing Cancer",
-    href : "012345678/3|cell1|+20x20"
+    value : "012345678/3|cell1|+20x20"
 }, {
     title : "45678/5678 - Majorities",
-    href : "45678/5678|random"
+    value : "45678/5678|random"
 }, {
     title : "2468/2468 - H₂O - Chemical Balance",
-    href : "2468/2468|h2o|+20x20"
+    value : "2468/2468|h2o|+20x20"
 }, {
     title : "23/3 - Line",
-    href : "23/3|line|+100x110|400x221|1ms|nogrid"
+    value : "23/3|line|+100x110|400x221|1ms|nogrid"
 } ]
 GameOfLife.prototype.defaultDefaultSettings = {
     rules : {
