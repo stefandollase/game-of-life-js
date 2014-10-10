@@ -340,7 +340,8 @@ GameOfLife.prototype.setupUI = function(parameters) {
     container = this.setupUIElement(container, "fieldset", "ruleItems");
     save("revive", this.setupUICheckBoxes(container, "setRules"));
 
-    container = this.setupUIElement(this.html.controls, "fieldset", "customPattern");
+    container = this.setupUIElement(this.html.controls, "fieldset",
+	    "customPattern");
     save("customPattern", this.setupUITextArea(container, "Custom Pattern",
 	    "setCustomPattern"));
 
@@ -519,7 +520,7 @@ GameOfLife.prototype.setRules = function() {
 GameOfLife.prototype.setCustomPattern = function() {
     this.state.unset("pattern");
     this.state.unset("patternData");
-    
+
     var pattern = {};
     var lines = this.html.customPattern.value.split("\n");
     for (var i = 0; i < lines.length; i++) {
@@ -528,7 +529,7 @@ GameOfLife.prototype.setCustomPattern = function() {
 	    pattern[i] = line;
 	}
     }
-    
+
     this.pattern = pattern;
     this.initPattern();
     this.drawAllCells();
