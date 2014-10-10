@@ -340,6 +340,10 @@ GameOfLife.prototype.setupUI = function(parameters) {
     container = this.setupUIElement(container, "fieldset", "ruleItems");
     save("revive", this.setupUICheckBoxes(container, "setRules"));
 
+    container = this.setupUIElement(this.html.controls, "fieldset", "import");
+    save("customPattern", this.setupUITextArea(container, "Custom Pattern",
+	    "setCustomPattern"));
+
     container = this.setupUIElement(this.html.container, "div", "canvas");
     this.setupUICanvas(container);
 }
@@ -380,6 +384,15 @@ GameOfLife.prototype.setupUITextBox = function(container, title, callback) {
     legend.appendChild(textBox);
     container.appendChild(legend);
     return textBox;
+}
+GameOfLife.prototype.setupUITextArea = function(container, title, callback) {
+    var legend = document.createElement("legend");
+    legend.innerHTML = title;
+    var textarea = document.createElement("textarea");
+    textarea.addEventListener('keyup', this.callThatFunction(callback), false);
+    legend.appendChild(textarea);
+    container.appendChild(legend);
+    return textarea;
 }
 GameOfLife.prototype.setupUICheckBox = function(container, title, callback) {
     var legend = document.createElement("legend");
@@ -502,6 +515,31 @@ GameOfLife.prototype.setRules = function() {
 	keepAlive : keepAlive,
 	revive : revive
     });
+}
+GameOfLife.prototype.setCustomPattern = function() {
+    var pattern = {};
+    var lines = this.html.customPattern.value.split("\n");
+    for (var i = 0; i < lines.length; i++) {
+	var line = this.parseLine(lines[i].trim().split(""));
+	if (line.length > 0) {
+	    pattern[i] = line;
+	}
+    }
+    
+    this.pattern = pattern;
+    this.initPattern();
+    this.drawAllCells();
+
+    this.currentGenerationChanged = true;
+}
+GameOfLife.prototype.parseLine = function(line) {
+    var result = [];
+    for (var j = 0; j < line.length; j++) {
+	if (line[j] !== ".") {
+	    result.push(j);
+	}
+    }
+    return result;
 }
 GameOfLife.prototype.setMode = function() {
     window.location.hash = this.html.selectMode.value;
