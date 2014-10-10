@@ -594,7 +594,16 @@ GameOfLife.prototype.initArray = function(arr, value) {
     return arr;
 }
 GameOfLife.prototype.resize = function() {
-    this.html.canvas.width = this.html.canvas.parentNode.offsetWidth;
+    var width;
+    if ((this.size.width / this.size.height) > (this.maxCanvasSize.width / this.maxCanvasSize.height)) {
+	width = this.maxCanvasSize.width;
+    } else {
+	width = (this.maxCanvasSize.height * this.size.width / this.size.height) | 0;
+    }
+    if (width > this.html.canvas.parentNode.offsetWidth) {
+	width = this.html.canvas.parentNode.offsetWidth;
+    }
+    this.html.canvas.width = width;
     this.html.canvas.height = this.html.canvas.width * this.size.height
 	    / this.size.width;
 
@@ -990,4 +999,8 @@ GameOfLife.prototype.defaultDefaultSettings = {
     speed : 100,
     showGrid : true,
     border : "dead",
+    maxCanvasSize : {
+	width : 500,
+	height : 500,
+    }
 }
