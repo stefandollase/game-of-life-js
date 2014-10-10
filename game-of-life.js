@@ -295,7 +295,8 @@ GameOfLife.prototype.setupUI = function(parameters) {
     this.setupUIButton(container, "Clear", "initNamedPattern", [ "clean" ]);
     this.setupUIButton(container, "Random", "initNamedPattern", [ "random" ]);
     save("gridButton", this.setupUIButton(container, "Hide Grid", "toggleGrid"));
-    this.setupUIButton(container, "Export", "exportCurrentGeneration");
+    this.setupUIButton(container, "Export Current Generation",
+	    "exportCurrentGeneration");
 
     container = this.setupUIElement(this.html.controls, "fieldset", "modes");
     container = this.setupUILegend(container, "Presets");
