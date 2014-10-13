@@ -156,8 +156,13 @@ pre {
     }
 }
 
+/**
+ * Form formatting
+ */
+form,
 fieldset,
 legend,
+label,
 .input,
 textarea,
 input[type="text"],
@@ -170,12 +175,14 @@ input[type="url"] {
 	border: none;
 }
 
+form,
 fieldset {
 	padding: 0;
 	margin: 0;
 }
 
-legend {
+legend ,
+label {
 	padding: 0;
 	margin: 5px 0;
 }
@@ -194,7 +201,6 @@ input[type="url"] {
 		outline-color: $text-color;
 	}
 }
-
 
 /**
  * Wrapper
