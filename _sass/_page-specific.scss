@@ -1,5 +1,5 @@
 .game-of-life {
-	.customPattern textarea {
+	.custom-pattern textarea {
 		resize: vertical;
 		height: 400px;
 	}
@@ -20,7 +20,7 @@
 	    @extend %clearfix;
 	}
 	
-	.rules .ruleItems legend {
+	.rules .rule-items label {
 		margin: 0;
 		width: auto;
 		float: left;
@@ -35,7 +35,7 @@
         }
     }
     
-    .customPatternContainer {
+    .custom-pattern {
     	display: none;
     }
 }
