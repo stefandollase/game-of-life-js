@@ -1,0 +1,41 @@
+.game-of-life {
+	.customPattern textarea {
+		resize: vertical;
+		height: 400px;
+	}
+
+	.controls {
+		margin-right: 10px;
+		width: 300px;
+		float: left;
+	    @extend %clearfix;
+	}
+	
+	.canvas {
+		text-align: center;
+		min-width: 100px;
+		width:         calc(100% - 310px);
+		width: -webkit-calc(100% - 310px);
+		float: left;
+	    @extend %clearfix;
+	}
+	
+	.rules .ruleItems legend {
+		margin: 0;
+		width: auto;
+		float: left;
+	    @extend %clearfix;
+	}
+	
+    @include media-query(800px) {
+		.canvas, .controls {
+			margin: 0;
+			width: 100%;
+			float: none;
+        }
+    }
+    
+    .customPatternContainer {
+    	display: none;
+    }
+}
