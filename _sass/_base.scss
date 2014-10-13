@@ -156,6 +156,44 @@ pre {
     }
 }
 
+fieldset,
+legend,
+.input,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"] {
+	width: 100%;
+	box-sizing: border-box;
+	display: block;
+	border: none;
+}
+
+fieldset {
+	padding: 0;
+	margin: 0;
+}
+
+legend {
+	padding: 0;
+	margin: 5px 0;
+}
+
+.input,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"] {
+	padding: 1px;
+	margin: 0;
+	outline: 1px solid $grey-color;
+	
+	&:focus, &:hover {
+		outline-color: $text-color;
+	}
+}
 
 
 /**
