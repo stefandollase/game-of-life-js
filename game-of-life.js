@@ -27,6 +27,7 @@ function GameOfLife(parameters) {
 
     this.timer = false;
 
+    this.setupNamedPatterns(parameters);
     this.state = this.createState();
     this.setupSettings(parameters);
     this.setupModes(parameters);
@@ -165,6 +166,8 @@ GameOfLife.prototype.updatePattern = function() {
     var patternData = this.state.get("patternData");
     if (pattern === "random") {
 	this.pattern = "random";
+    } else if (pattern === "clean") {
+	this.pattern = "clean";
     } else if (pattern !== false) {
 	this.pattern = this.namedPatterns[pattern];
 	this.html.selectPattern.value = pattern;
@@ -172,13 +175,15 @@ GameOfLife.prototype.updatePattern = function() {
 	this.pattern = patternData;
     } else if (this.defaultSettings.pattern === "random") {
 	this.pattern = "random";
+    } else if (this.defaultSettings.pattern === "clean") {
+	this.pattern = "clean";
     } else if (this.isString(this.defaultSettings.pattern)) {
 	this.pattern = this.namedPatterns[this.defaultSettings.pattern];
 	this.html.selectPattern.value = this.defaultSettings.pattern;
     } else if (this.defaultSettings.pattern !== false) {
 	this.pattern = this.defaultSettings.pattern;
     } else {
-	this.pattern = {};
+	this.pattern = "clean";
     }
     this.initPattern();
     this.drawAllCells();
@@ -266,6 +271,21 @@ GameOfLife.prototype.setupModes = function(parameters) {
 	}
     } else {
 	this.modes = this.defaultModes;
+    }
+}
+GameOfLife.prototype.setupNamedPatterns = function(parameters) {
+    if (parameters.patterns) {
+	this.namedPatterns = {};
+	for ( var key in parameters.patterns) {
+	    if (key === "defaults") {
+		this.overwriteJSObject(this.namedPatterns,
+			this.defaultNamedPatterns);
+	    } else {
+		this.namedPatterns[key] = parameters.patterns[key];
+	    }
+	}
+    } else {
+	this.namedPatterns = this.defaultNamedPatterns;
     }
 }
 GameOfLife.prototype.setupUI = function(parameters) {
@@ -626,6 +646,8 @@ GameOfLife.prototype.initPattern = function() {
 
     if (this.pattern === "random") {
 	this.createRandomPattern();
+    } else if (this.pattern === "clean") {
+	this.createDataPattern(0, 0, {});
     } else {
 	this.createDataPattern(this.patternOffset.i, this.patternOffset.j,
 		this.pattern);
@@ -951,50 +973,18 @@ GameOfLife.prototype.mouseUp = function(event) {
 GameOfLife.prototype.getPatternNames = function(includeCleanAndRandom) {
     var result = [];
     if (includeCleanAndRandom === true) {
+	result.push("clean");
 	result.push("random");
     }
     for ( var pattern in this.namedPatterns) {
-	if (pattern !== "clean" || includeCleanAndRandom === true) {
+	if (includeCleanAndRandom === true
+		|| (pattern !== "clean" && pattern !== "random")) {
 	    result.push(pattern);
 	}
     }
     return result;
 }
-GameOfLife.prototype.namedPatterns = {
-    "clean" : {},
-    "cell1" : {
-	0 : [ 4 ],
-	1 : [ 2, 3, 5, 6 ],
-	2 : [ 1, 6 ],
-	3 : [ 0, 7 ],
-	4 : [ 0, 1, 2, 4, 5, 6 ],
-	5 : [ 2, 3, 5 ],
-    },
-    "cell2" : {
-	0 : [ 2, 3, 4 ],
-	1 : [ 1, 2, 3, 4, 5 ],
-	2 : [ 0, 1, 2, 3, 4 ],
-	3 : [ 0, 1, 2, 3, 4 ],
-	4 : [ 1, 2 ],
-    },
-    "nice" : {
-	0 : [ 0, 1, 2, 4, 5, 6 ],
-	1 : [ 0, 6 ],
-	2 : [ 0, 1, 2, 4, 5, 6 ],
-    },
-    "h2o" : {
-	0 : [ 0, 3, 9, 10, 11, 12 ],
-	1 : [ 0, 3, 9, 12 ],
-	2 : [ 0, 3, 6, 9, 12 ],
-	3 : [ 0, 1, 2, 3, 5, 6, 7, 9, 12 ],
-	4 : [ 0, 3, 6, 9, 12 ],
-	5 : [ 0, 3, 9, 12 ],
-	6 : [ 0, 3, 9, 10, 11, 12 ],
-	7 : [ 4, 5 ],
-	8 : [ 5 ],
-	9 : [ 4 ],
-	10 : [ 4, 5 ],
-    },
+GameOfLife.prototype.defaultNamedPatterns = {
     "glider-gun" : {
 	0 : [ 24 ],
 	1 : [ 22, 24 ],
@@ -1028,41 +1018,29 @@ GameOfLife.prototype.defaultModes = [ {
     title : "23/3 - Conway's Original Game Of Life",
     value : "23/3|random"
 }, {
-    title : "23/3 - Conway's Original Game Of Life - Nice",
-    value : "23/3|nice|+20x20"
+    title : "23/3 - Conway's Original Game Of Life - Line",
+    value : "23/3|line|+100x110|400x221|1ms|nogrid"
 }, {
     title : "23/3 - Conway's Original Game Of Life - Glider Gun",
     value : "23/3|glider-gun"
 }, {
-    title : "1357/1357 - Copyworld",
-    value : "1357/1357|cell1|+20x20"
-}, {
-    title : "12345/3 - Labyrinth",
-    value : "12345/3|cell1|+20x20"
-}, {
-    title : "0123/01234 - Blink",
-    value : "0123/01234|random"
-}, {
     title : "01234678/0123478 - Anti-Conway",
-    value : "01234678/0123478|random|alive"
+    value : "01234678/0123478|random|torus"
+}, {
+    title : "1357/1357 - Copyworld",
+    value : "1357/1357|torus|100x100"
 }, {
     title : "02468/02468 - Anti-Copyworld",
-    value : "02468/02468|cell1|+20x20"
+    value : "02468/02468|torus|100x100"
 }, {
-    title : "02468/02468 - Anti-Copyworld - Clean",
-    value : "02468/02468|clean|+20x20|200x200|nogrid|1ms"
+    title : "02468/02468 - Anti-Copyworld - Dead Border",
+    value : "02468/02468|+20x20|dead|200x200|nogrid|10ms"
 }, {
-    title : "012345678/3 - Growing Cancer",
-    value : "012345678/3|cell1|+20x20"
+    title : "12345/3 - Labyrinth",
+    value : "12345/3|torus|10ms"
 }, {
     title : "45678/5678 - Majorities",
-    value : "45678/5678|random"
-}, {
-    title : "2468/2468 - H₂O - Chemical Balance",
-    value : "2468/2468|h2o|+20x20"
-}, {
-    title : "23/3 - Line",
-    value : "23/3|line|+100x110|400x221|1ms|nogrid"
+    value : "45678/5678|random|10ms"
 } ]
 GameOfLife.prototype.defaultDefaultSettings = {
     rules : {
@@ -1078,7 +1056,7 @@ GameOfLife.prototype.defaultDefaultSettings = {
 	i : 0,
 	j : 0
     },
-    pattern : {},
+    pattern : "clean",
     speed : 100,
     showGrid : true,
     border : "dead",
