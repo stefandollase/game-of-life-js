@@ -306,77 +306,76 @@ GameOfLife.prototype.setupUI = function(parameters) {
     this.setupUIWindow();
 
     this.html.container = this.setupUIElement(container, "div", "game-of-life");
-    this.html.controls = this.setupUIElement(this.html.container, "div",
+    this.html.controls = this.setupUIElement(this.html.container, "form",
 	    "controls");
 
     container = this.setupUIElement(this.html.controls, "fieldset", "buttons");
-    save("startButton", this.setupUIButton(container, "Start", "toggleRunning"));
-    this.setupUIButton(container, "Step", "step");
-    this.setupUIButton(container, "Clear", "initNamedPattern", [ "clean" ]);
-    this.setupUIButton(container, "Random", "initNamedPattern", [ "random" ]);
-    save("gridButton", this.setupUIButton(container, "Hide Grid", "toggleGrid"));
-    this.setupUIButton(container, "Export Current Generation",
-	    "exportCurrentGeneration");
-    this.setupUIButton(container, "Custom Pattern", "toggleCustomPattern");
+    {
+	save("startButton", this.setupUIButton(container, "Start",
+		"toggleRunning"));
+	this.setupUIButton(container, "Step", "step");
+	this.setupUIButton(container, "Clear", "initNamedPattern", [ "clean" ]);
+	this.setupUIButton(container, "Random", "initNamedPattern",
+		[ "random" ]);
+	save("gridButton", this.setupUIButton(container, "Hide Grid",
+		"toggleGrid"));
+	this.setupUIButton(container, "Export Current Generation",
+		"exportCurrentGeneration");
+	this.setupUIButton(container, "Custom Pattern", "toggleCustomPattern");
+    }
 
     this.html.settingsContainer = this.setupUIElement(this.html.controls,
-	    "div", "settingsContainer");
+	    "fieldset", "settings");
+    container = this.html.settingsContainer;
+    {
+	save("selectMode", this.setupUIComboBox(container, "Presets",
+		"setMode", this.modes));
+	this.html.selectMode.className = "input";
 
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "modes");
-    container = this.setupUILegend(container, "Presets");
-    save("selectMode", this.setupUIComboBox(container, "setMode", this.modes));
-    this.html.selectMode.className = "input";
+	save("selectBorder", this.setupUIComboBox(container, "Border Behavior",
+		"setBorder", [ "dead", "torus", "alive" ]));
+	this.html.selectBorder.className = "input";
 
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "border");
-    container = this.setupUILegend(container, "Border Behavior");
-    save("selectBorder", this.setupUIComboBox(container, "setBorder", [ "dead",
-	    "torus", "alive" ]));
-    this.html.selectBorder.className = "input";
+	save("selectPattern", this.setupUIComboBox(container, "Pattern",
+		"initNamedPattern", this.getPatternNames(false)));
+	this.html.selectPattern.className = "input";
 
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "patterns");
-    container = this.setupUILegend(container, "Pattern");
-    save("selectPattern", this.setupUIComboBox(container, "initNamedPattern",
-	    this.getPatternNames(false)));
-    this.html.selectPattern.className = "input";
+	save("patternOffsetJTextBox", this.setupUITextBox(container,
+		"Pattern Offset X (cells)", "setPatternOffset"));
+	save("patternOffsetITextBox", this.setupUITextBox(container,
+		"Pattern Offset Y (cells)", "setPatternOffset"));
+	save("widthTextBox", this.setupUITextBox(container, "Width (cells)",
+		"setSize"));
+	save("heightTextBox", this.setupUITextBox(container, "Height (cells)",
+		"setSize"));
+	save("speedTextBox", this.setupUITextBox(container,
+		"Speed (ms per step)", "setSpeed"));
 
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "textBoxes");
-    save("patternOffsetJTextBox", this.setupUITextBox(container,
-	    "Pattern Offset X (cells)", "setPatternOffset"));
-    save("patternOffsetITextBox", this.setupUITextBox(container,
-	    "Pattern Offset Y (cells)", "setPatternOffset"));
-    save("widthTextBox", this.setupUITextBox(container, "Width (cells)",
-	    "setSize"));
-    save("heightTextBox", this.setupUITextBox(container, "Height (cells)",
-	    "setSize"));
-    save("speedTextBox", this.setupUITextBox(container, "Speed (ms per step)",
-	    "setSpeed"));
+	container = this.setupUIElement(this.html.settingsContainer,
+		"fieldset", "rules keep-alive");
+	container = this.setupUILegend(container, "Keep Alive");
+	container = this.setupUIElement(container, "fieldset", "rule-items");
+	save("keepAlive", this.setupUICheckBoxes(container, "setRules"));
 
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "rules keepAlive");
-    container = this.setupUILegend(container, "Keep Alive");
-    container = this.setupUIElement(container, "fieldset", "ruleItems");
-    save("keepAlive", this.setupUICheckBoxes(container, "setRules"));
-
-    container = this.setupUIElement(this.html.settingsContainer, "fieldset",
-	    "rules revive");
-    container = this.setupUILegend(container, "Revive");
-    container = this.setupUIElement(container, "fieldset", "ruleItems");
-    save("revive", this.setupUICheckBoxes(container, "setRules"));
+	container = this.setupUIElement(this.html.settingsContainer,
+		"fieldset", "rules revive");
+	container = this.setupUILegend(container, "Revive");
+	container = this.setupUIElement(container, "fieldset", "rule-items");
+	save("revive", this.setupUICheckBoxes(container, "setRules"));
+    }
 
     this.html.customPatternContainer = this.setupUIElement(this.html.controls,
-	    "div", "customPatternContainer");
-
-    container = this.setupUIElement(this.html.customPatternContainer,
-	    "fieldset", "customPattern");
-    save("customPattern", this.setupUITextArea(container,
-	    "Custom Pattern (. = dead cell)", "setCustomPattern"));
+	    "fieldset", "custom-pattern");
+    container = this.html.customPatternContainer;
+    {
+	save("customPattern", this.setupUITextArea(container,
+		"Custom Pattern (. = dead cell)", "setCustomPattern"));
+    }
 
     container = this.setupUIElement(this.html.container, "div", "canvas");
-    this.setupUICanvas(container);
+    {
+	this.setupUICanvas(container);
+    }
 }
 GameOfLife.prototype.setupUIWindow = function() {
     var that = this;
@@ -407,32 +406,32 @@ GameOfLife.prototype.setupUIButton = function(container, title, callback,
     return button;
 }
 GameOfLife.prototype.setupUITextBox = function(container, title, callback) {
-    var legend = document.createElement("legend");
-    legend.innerHTML = title;
+    var label = document.createElement("label");
+    label.innerHTML = title;
     var textBox = document.createElement("input");
     textBox.setAttribute("type", "text");
     textBox.addEventListener('keyup', this.callThatFunction(callback), false);
-    legend.appendChild(textBox);
-    container.appendChild(legend);
+    label.appendChild(textBox);
+    container.appendChild(label);
     return textBox;
 }
 GameOfLife.prototype.setupUITextArea = function(container, title, callback) {
-    var legend = document.createElement("legend");
-    legend.innerHTML = title;
+    var label = document.createElement("label");
+    label.innerHTML = title;
     var textarea = document.createElement("textarea");
     textarea.addEventListener('keyup', this.callThatFunction(callback), false);
-    legend.appendChild(textarea);
-    container.appendChild(legend);
+    label.appendChild(textarea);
+    container.appendChild(label);
     return textarea;
 }
 GameOfLife.prototype.setupUICheckBox = function(container, title, callback) {
-    var legend = document.createElement("legend");
+    var label = document.createElement("label");
     var checkBox = document.createElement("input");
     checkBox.setAttribute("type", "checkbox");
     checkBox.addEventListener('change', this.callThatFunction(callback), false);
-    legend.appendChild(checkBox);
-    legend.appendChild(document.createTextNode(title));
-    container.appendChild(legend);
+    label.appendChild(checkBox);
+    label.appendChild(document.createTextNode(title));
+    container.appendChild(label);
     return checkBox;
 }
 GameOfLife.prototype.setupUICheckBoxes = function(container, callback) {
@@ -442,7 +441,10 @@ GameOfLife.prototype.setupUICheckBoxes = function(container, callback) {
     }
     return result;
 }
-GameOfLife.prototype.setupUIComboBox = function(container, callback, options) {
+GameOfLife.prototype.setupUIComboBox = function(container, title, callback,
+	options) {
+    var label = document.createElement("label");
+    label.innerHTML = title;
     var select = document.createElement("select");
     for (var i = 0; i < options.length; i++) {
 	var option = document.createElement("option")
@@ -456,7 +458,8 @@ GameOfLife.prototype.setupUIComboBox = function(container, callback, options) {
 	select.appendChild(option);
     }
     select.addEventListener("change", this.callThatFunction(callback), false);
-    container.appendChild(select);
+    label.appendChild(select);
+    container.appendChild(label);
     return select;
 }
 GameOfLife.prototype.setupUICanvas = function(container) {
