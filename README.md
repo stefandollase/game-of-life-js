@@ -14,7 +14,7 @@ This is my Javascript implementation of Conway's Game of Life ([demo](http://ste
 <script src="http://stefandollase.github.io/app-state-binder-js/cdn/app-state-binder.latest.min.js"></script>
 <script src="http://stefandollase.github.io/game-of-life-js/cdn/game-of-life.latest.min.js"></script>
 <script>
-  var gof = new GameOfLife({
+  var gol = new GameOfLife({
     container : "gol-container"
   });
 </script>
@@ -25,7 +25,7 @@ This is my Javascript implementation of Conway's Game of Life ([demo](http://ste
 You can pass settings to the GameOfLife constructor:
 
 ```js
-var gof = new GameOfLife({
+var gol = new GameOfLife({
   container : "gol-container",
   settings: {
     rules : {
