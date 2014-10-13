@@ -20,6 +20,62 @@ This is my Javascript implementation of Conway's Game of Life ([demo](http://ste
 </script>
 ```
 
+### Settings
+
+You can pass settings to the GameOfLife constructor:
+
+```js
+var gof = new GameOfLife({
+  container : "gol-container",
+  settings: {
+    rules : {
+      keepAlive : [ false, false, true, true, false, false, false, false, false ],
+      revive : [ false, false, false, true, false, false, false, false, false ]
+    },
+    size : {
+      width : 100,
+      height : 60,
+    },
+    patternOffset : {
+      i : 0,
+      j : 0
+    },
+    pattern : "clean",
+    speed : 100,
+    showGrid : true,
+    border : "dead",
+    maxCanvasSize : {
+      width : 1000,
+      height : 1000,
+    },
+    color : {
+      border : "#eee",
+      grid : "#eee",
+      alive : "#000",
+      dead : "#fff",
+      setAlive : "#33c",
+      setDead : "#77c",
+    }
+  },
+  patterns: {
+  	glider: {
+  	  0: [0, 1, 2],
+  	  1: [0],
+  	  2: [1],
+  	}
+  },
+  modes: [
+    {
+      title : "23/3 - Conway's Original Game Of Life",
+      value : "23/3|random|torus"
+    }, {
+      title : "01234678/0123478 - Anti-Conway",
+      value : "01234678/0123478|random|torus"
+    }
+  ],
+});
+```
+
 ### License
 
 The library is licensed under the MIT License.
