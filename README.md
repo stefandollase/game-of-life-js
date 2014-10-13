@@ -1,4 +1,4 @@
-game-of-life-js
+Conway's Game of Life
 ===============
 
 Conway's Game of Life is a cellular automaton developed by John Horton Conway in 1970. You can find more information about it [here](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
