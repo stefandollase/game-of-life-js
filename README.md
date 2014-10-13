@@ -20,9 +20,11 @@ This is my Javascript implementation of Conway's Game of Life ([demo](http://ste
 </script>
 ```
 
+You may want to wait for the first stable release.
+
 ### Settings
 
-You can pass settings to the GameOfLife constructor:
+You can pass the following settings to the GameOfLife constructor:
 
 ```js
 var gol = new GameOfLife({
