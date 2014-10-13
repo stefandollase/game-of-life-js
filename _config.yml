@@ -19,6 +19,9 @@ markdown: kramdown
 
 # Page Menu Entries
 menu_entries:
+  - url: "http://www.argentum.freeserve.co.uk/lex.htm"
+    title: Life Lexicon
+    useBaseUrl: false
   - url: "/"
     title: Blog
     useBaseUrl: false
