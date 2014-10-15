@@ -306,7 +306,7 @@ GameOfLife.prototype.setupUI = function(parameters) {
     this.setupUIWindow();
 
     this.html.container = this.setupUIElement(container, "div", "game-of-life");
-    this.html.controls = this.setupUIElement(this.html.container, "form",
+    this.html.controls = this.setupUIElement(this.html.container, "div",
 	    "controls");
 
     container = this.setupUIElement(this.html.controls, "fieldset", "buttons");
