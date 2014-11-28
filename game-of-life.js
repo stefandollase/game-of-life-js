@@ -319,8 +319,9 @@ GameOfLife.prototype.setupUI = function(parameters) {
 		[ "random" ]);
 	save("gridButton", this.setupUIButton(container, "Hide Grid",
 		"toggleGrid"));
-	this.setupUIButton(container, "Export Current Generation",
-		"exportCurrentGeneration");
+	save("exportCurrentGeneration", this.setupUIButton(container,
+		"Export Current Generation", "exportCurrentGeneration"));
+	this.html.exportCurrentGeneration.title = "Writes the current generation to the URL, which can be used to restore the current generation.";
 	save("customPatternButton", this.setupUIButton(container,
 		"Enter Custom Pattern", "toggleCustomPattern"));
     }
