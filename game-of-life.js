@@ -368,6 +368,7 @@ GameOfLife.prototype.setupUI = function(parameters) {
 	    "fieldset", "custom-pattern");
     container = this.html.customPatternContainer;
     {
+	container.title = "The pattern is shifted by the pattern offset.\n\nPattern syntax\nLiving cell: *\nDead cell: .\nNew row: new line\n\nExample Pattern:\n***\n*\n.*";
 	save("customPattern", this.setupUITextArea(container,
 		"Custom Pattern (. = dead cell)", "setCustomPattern"));
     }
