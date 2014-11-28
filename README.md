@@ -11,16 +11,14 @@ This is my Javascript implementation of Conway's Game of Life ([demo](http://ste
 
 ```html
 <div id="gol-container"></div>
-<script src="http://stefandollase.github.io/app-state-binder-js/cdn/app-state-binder.latest.min.js"></script>
-<script src="http://stefandollase.github.io/game-of-life-js/cdn/game-of-life.latest.min.js"></script>
+<script src="http://stefandollase.github.io/app-state-binder-js/cdn/app-state-binder-1.0.min.js"></script>
+<script src="http://stefandollase.github.io/game-of-life-js/cdn/game-of-life-1.0.min.js"></script>
 <script>
   var gol = new GameOfLife({
     container : "gol-container"
   });
 </script>
 ```
-
-You may want to wait for the first stable release.
 
 ### Settings
 
