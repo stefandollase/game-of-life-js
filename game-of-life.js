@@ -321,7 +321,8 @@ GameOfLife.prototype.setupUI = function(parameters) {
 		"toggleGrid"));
 	this.setupUIButton(container, "Export Current Generation",
 		"exportCurrentGeneration");
-	this.setupUIButton(container, "Custom Pattern", "toggleCustomPattern");
+	save("customPatternButton", this.setupUIButton(container,
+		"Enter Custom Pattern", "toggleCustomPattern"));
     }
 
     this.html.settingsContainer = this.setupUIElement(this.html.controls,
@@ -590,9 +591,11 @@ GameOfLife.prototype.toggleCustomPattern = function() {
     if (isSettings) {
 	this.html.settingsContainer.style.display = "none";
 	this.html.customPatternContainer.style.display = "block";
+	this.html.customPatternButton.innerHTML = "Return to Settings";
     } else {
 	this.html.settingsContainer.style.display = "block";
 	this.html.customPatternContainer.style.display = "none";
+	this.html.customPatternButton.innerHTML = "Enter Custom Pattern";
     }
 }
 GameOfLife.prototype.toggleGrid = function() {
