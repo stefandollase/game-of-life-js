@@ -22,10 +22,10 @@ menu_entries:
   - url: "http://www.argentum.freeserve.co.uk/lex.htm"
     title: Life Lexicon
     useBaseUrl: false
-  - url: "/"
+  - url: "http://blog.stefandollase.de/"
     title: Blog
     useBaseUrl: false
-  - url: "/projects/"
+  - url: "http://blog.stefandollase.de/projects/"
     title: "Projects"
     useBaseUrl: false
   - url: "/about/"
