@@ -3,22 +3,10 @@
 ---
 @charset "utf-8";
 
-/**
- * Clearfix
- */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-}
-
-@mixin media-query($device) {
-    @media screen and (max-width: $device) {
-        @content;
-    }
-}
-
-@import "game-of-life-js";
+@import
+		"variables",
+		"media-query",
+		"clearfix",
+        "forms",
+		"game-of-life-js"
+;
