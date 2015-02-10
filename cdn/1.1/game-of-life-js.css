@@ -1,0 +1,82 @@
+/**
+ * Clearfix
+ */
+.game-of-life .controls:after, .game-of-life .canvas:after, .game-of-life .rules .rule-items label:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+/**
+ * Form formatting
+ */
+form,
+fieldset,
+legend,
+label,
+.input,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"] {
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  border: none; }
+
+form,
+fieldset {
+  padding: 0;
+  margin: 0; }
+
+legend,
+label {
+  padding: 0;
+  margin: 5px 0; }
+
+.input,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"] {
+  padding: 1px;
+  margin: 0;
+  outline: 1px solid #828282; }
+  .input:focus, .input:hover,
+  textarea:focus,
+  textarea:hover,
+  input[type="text"]:focus,
+  input[type="text"]:hover,
+  input[type="password"]:focus,
+  input[type="password"]:hover,
+  input[type="email"]:focus,
+  input[type="email"]:hover,
+  input[type="url"]:focus,
+  input[type="url"]:hover {
+    outline-color: #111; }
+
+.game-of-life .custom-pattern textarea {
+  resize: vertical;
+  height: 400px; }
+.game-of-life .controls {
+  margin-right: 10px;
+  width: 300px;
+  float: left; }
+.game-of-life .canvas {
+  text-align: center;
+  min-width: 100px;
+  width: calc(100% - 310px);
+  width: -webkit-calc(100% - 310px);
+  float: left; }
+.game-of-life .rules .rule-items label {
+  margin: 0;
+  width: auto;
+  float: left; }
+@media screen and (max-width: 800px) {
+  .game-of-life .canvas, .game-of-life .controls {
+    margin: 0;
+    width: 100%;
+    float: none; } }
+.game-of-life .custom-pattern {
+  display: none; }
