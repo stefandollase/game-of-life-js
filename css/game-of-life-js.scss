@@ -3,6 +3,16 @@
 ---
 @charset "utf-8";
 
+/**
+ * Clearfix
+ */
+%clearfix {
 
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
 
 @import "game-of-life-js";
