@@ -15,4 +15,10 @@
     }
 }
 
+@mixin media-query($device) {
+    @media screen and (max-width: $device) {
+        @content;
+    }
+}
+
 @import "game-of-life-js";
