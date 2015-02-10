@@ -157,52 +157,6 @@ pre {
 }
 
 /**
- * Form formatting
- */
-form,
-fieldset,
-legend,
-label,
-.input,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="url"] {
-	width: 100%;
-	box-sizing: border-box;
-	display: block;
-	border: none;
-}
-
-form,
-fieldset {
-	padding: 0;
-	margin: 0;
-}
-
-legend ,
-label {
-	padding: 0;
-	margin: 5px 0;
-}
-
-.input,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="url"] {
-	padding: 1px;
-	margin: 0;
-	outline: 1px solid $grey-color;
-	
-	&:focus, &:hover {
-		outline-color: $text-color;
-	}
-}
-
-/**
  * Wrapper
  */
 .wrapper {
@@ -219,20 +173,6 @@ input[type="url"] {
         max-width:         calc(#{$page-width} - (#{$spacing-unit}));
         padding-right: $spacing-unit / 2;
         padding-left: $spacing-unit / 2;
-    }
-}
-
-
-
-/**
- * Clearfix
- */
-%clearfix {
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
     }
 }
 
