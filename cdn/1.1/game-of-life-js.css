@@ -1,61 +1,60 @@
-/**
- * Clearfix
- */
 .game-of-life .controls:after, .game-of-life .canvas:after, .game-of-life .rules .rule-items label:after {
   content: "";
   display: table;
   clear: both; }
 
-/**
- * Form formatting
- */
-form,
-fieldset,
-legend,
-label,
-.input,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="url"] {
+.game-of-life {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: #111;
+  background-color: #080808;
+  -webkit-text-size-adjust: 100%; }
+
+.game-of-life form,
+.game-of-life fieldset,
+.game-of-life legend,
+.game-of-life label,
+.game-of-life .input,
+.game-of-life textarea,
+.game-of-life input[type="text"],
+.game-of-life input[type="password"],
+.game-of-life input[type="email"],
+.game-of-life input[type="url"] {
   width: 100%;
   box-sizing: border-box;
   display: block;
   border: none; }
-
-form,
-fieldset {
+.game-of-life form,
+.game-of-life fieldset {
   padding: 0;
   margin: 0; }
-
-legend,
-label {
+.game-of-life legend,
+.game-of-life label {
   padding: 0;
   margin: 5px 0; }
-
-.input,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="email"],
-input[type="url"] {
+.game-of-life .input,
+.game-of-life textarea,
+.game-of-life input[type="text"],
+.game-of-life input[type="password"],
+.game-of-life input[type="email"],
+.game-of-life input[type="url"] {
   padding: 1px;
   margin: 0;
   outline: 1px solid #828282; }
-  .input:focus, .input:hover,
-  textarea:focus,
-  textarea:hover,
-  input[type="text"]:focus,
-  input[type="text"]:hover,
-  input[type="password"]:focus,
-  input[type="password"]:hover,
-  input[type="email"]:focus,
-  input[type="email"]:hover,
-  input[type="url"]:focus,
-  input[type="url"]:hover {
+  .game-of-life .input:focus, .game-of-life .input:hover,
+  .game-of-life textarea:focus,
+  .game-of-life textarea:hover,
+  .game-of-life input[type="text"]:focus,
+  .game-of-life input[type="text"]:hover,
+  .game-of-life input[type="password"]:focus,
+  .game-of-life input[type="password"]:hover,
+  .game-of-life input[type="email"]:focus,
+  .game-of-life input[type="email"]:hover,
+  .game-of-life input[type="url"]:focus,
+  .game-of-life input[type="url"]:hover {
     outline-color: #111; }
-
 .game-of-life .custom-pattern textarea {
   resize: vertical;
   height: 400px; }
