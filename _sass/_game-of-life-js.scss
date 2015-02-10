@@ -1,41 +1,39 @@
-.game-of-life {
-	.custom-pattern textarea {
-		resize: vertical;
-		height: 400px;
-	}
+.custom-pattern textarea {
+	resize: vertical;
+	height: 400px;
+}
 
-	.controls {
-		margin-right: 10px;
-		width: 300px;
-		float: left;
-	    @extend %clearfix;
-	}
-	
-	.canvas {
-		text-align: center;
-		min-width: 100px;
-		width:         calc(100% - 310px);
-		width: -webkit-calc(100% - 310px);
-		float: left;
-	    @extend %clearfix;
-	}
-	
-	.rules .rule-items label {
+.controls {
+	margin-right: 10px;
+	width: 300px;
+	float: left;
+    @extend %clearfix;
+}
+
+.canvas {
+	text-align: center;
+	min-width: 100px;
+	width:         calc(100% - 310px);
+	width: -webkit-calc(100% - 310px);
+	float: left;
+    @extend %clearfix;
+}
+
+.rules .rule-items label {
+	margin: 0;
+	width: auto;
+	float: left;
+    @extend %clearfix;
+}
+
+@include media-query(800px) {
+	.canvas, .controls {
 		margin: 0;
-		width: auto;
-		float: left;
-	    @extend %clearfix;
+		width: 100%;
+		float: none;
 	}
-	
-    @include media-query(800px) {
-		.canvas, .controls {
-			margin: 0;
-			width: 100%;
-			float: none;
-        }
-    }
-    
-    .custom-pattern {
-    	display: none;
-    }
+}
+   
+.custom-pattern {
+   	display: none;
 }

@@ -8,23 +8,6 @@ dl, dd, ol, ul, figure {
     padding: 0;
 }
 
-
-
-/**
- * Basic styling
- */
-body {
-    font-family: $base-font-family;
-    font-size: $base-font-size;
-    line-height: $base-line-height;
-    font-weight: 300;
-    color: $text-color;
-    background-color: $footer-background-color;
-    -webkit-text-size-adjust: 100%;
-}
-
-
-
 /**
  * Set `margin-bottom` to maintain vertical rhythm
  */

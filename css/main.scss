@@ -4,13 +4,20 @@
 @charset "utf-8";
 
 @import
-		"variables",
-		"media-query",
-		"clearfix",
-        "base",
-        "forms",
-        "layout",
-        "tag-colors",
-        "page-specific",
-        "syntax-highlighting"
+	"variables",
+	"mixins",
+	"placeholders"
+;
+
+body {
+	@extend %font;
+}
+
+@import
+	"base",
+	"forms",
+	"layout",
+	"tag-colors",
+	"page-specific",
+	"syntax-highlighting"
 ;

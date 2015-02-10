@@ -4,9 +4,15 @@
 @charset "utf-8";
 
 @import
-		"variables",
-		"media-query",
-		"clearfix",
+	"variables",
+	"mixins",
+	"placeholders"
+;
+
+.game-of-life {
+	@extend %font;
+	@import
         "forms",
 		"game-of-life-js"
-;
+	;
+}
