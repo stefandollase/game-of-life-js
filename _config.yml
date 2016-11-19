@@ -10,10 +10,6 @@ author_address: [ "Harscampstraße 22", "52062 Aachen" ]
 email: "game-of-life-js ät stefandollase.de"
 github_username: "stefandollase"
 
-# Disqus settings
-#disqus_shortname: ""
-#disqus_identifier_prefix: ""
-
 # Build settings
 markdown: kramdown
 
