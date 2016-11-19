@@ -10,10 +10,6 @@ author_address: [ "My Street 123", "12345 My City" ]
 email: "your-email ät domain.com"
 github_username: "jekyll"
 
-# Disqus settings
-#disqus_shortname: ""
-#disqus_identifier_prefix: ""
-
 # Build settings
 markdown: kramdown
 
