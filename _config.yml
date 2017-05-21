@@ -1,7 +1,7 @@
 # Site settings
 title: "Conway's Game of Life"
 description: "This is the project page of my game-of-life-js library, which is my implementation of Conway's Game of Life."
-url: "http://stefandollase.github.io" # the base hostname & protocol for your site
+url: "https://stefandollase.github.io" # the base hostname & protocol for your site
 baseurl: "/game-of-life-js" # the subpath of your site, e.g. /blog/
 
 # About the author
@@ -18,10 +18,10 @@ menu_entries:
   - url: "http://www.argentum.freeserve.co.uk/lex.htm"
     title: Life Lexicon
     useBaseUrl: false
-  - url: "http://blog.stefandollase.de/"
+  - url: "https://blog.stefandollase.de/"
     title: Blog
     useBaseUrl: false
-  - url: "http://blog.stefandollase.de/projects/"
+  - url: "https://blog.stefandollase.de/projects/"
     title: "Projects"
     useBaseUrl: false
   - url: "/about/"
