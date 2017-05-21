@@ -1,24 +1,24 @@
 Conway's Game of Life
 ===============
 
-Conway's Game of Life is a cellular automaton developed by John Horton Conway in 1970. You can find more information about it [here](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+Conway's Game of Life is a cellular automaton developed by John Horton Conway in 1970. You can find more information about it [here](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
 ### Example
 
-This is my Javascript implementation of Conway's Game of Life ([demo](http://stefandollase.github.io/game-of-life-js/)).
+This is my Javascript implementation of Conway's Game of Life ([demo](https://stefandollase.github.io/game-of-life-js/)).
 
 ### Use it on your website
 
 Put the CSS file in the head:
 ```html
-<link rel="stylesheet" href="http://stefandollase.github.io/game-of-life-js/cdn/1.1/game-of-life-js.css" />
+<link rel="stylesheet" href="https://stefandollase.github.io/game-of-life-js/cdn/1.1/game-of-life-js.css" />
 ```
 
 Insert this in the body, where the game should appear:
 ```html
 <div id="gol-container"></div>
-<script src="http://stefandollase.github.io/app-state-binder-js/cdn/1.1/app-state-binder-js.min.js"></script>
-<script src="http://stefandollase.github.io/game-of-life-js/cdn/1.1/game-of-life-js.min.js"></script>
+<script src="https://stefandollase.github.io/app-state-binder-js/cdn/1.1/app-state-binder-js.min.js"></script>
+<script src="https://stefandollase.github.io/game-of-life-js/cdn/1.1/game-of-life-js.min.js"></script>
 <script>
   var gol = new GameOfLife({
     container : "gol-container"
